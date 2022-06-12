@@ -1,0 +1,44 @@
+{%extends "base.html"%} {% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h1 align="center">Zmiany stanów ludności w latach 2013-2050 w Polsce</h1>
+</br>
+<div align="center">
+       <table class="table table-dark">
+              {% for table in tables%}
+              {{titles[loop.index]}}
+              {{table | safe}}
+              {%endfor%}
+
+       </table>
+</div>
+</br>
+<body>
+<h2 align="center">Zmiany stanów ludności ogółem w Polsce</h2>
+</br>
+<div align="center">
+<canvas id="myChart" width="1000" height="400" align="center"></canvas>
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ labels | safe }},
+        datasets: [{
+             label: "Data points",
+             data: {{values | safe}},
+             ill: false,
+             borderColor: "rgb(75,192,192)",
+             lineTension: 0.1
+        }]
+    },
+    options: {
+        responsive: false
+        }
+});
+</script>
+</div>
+</body>
+{% endblock %}
+
